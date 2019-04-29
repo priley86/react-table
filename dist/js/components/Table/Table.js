@@ -79,6 +79,8 @@ var propTypes = {
   className: _propTypes2.default.string,
   /** Function called when user wants to collapse row. */
   onCollapse: _propTypes2.default.func,
+  /** Function called when user wants to compound expand row. */
+  onExpand: _propTypes2.default.func,
   /** Table variant, defaults to large. */
   variant: _propTypes2.default.oneOf(Object.values(TableVariant)),
   /** Size at which table is broken into tiles. */
@@ -131,8 +133,9 @@ var propTypes = {
   /** Header cells to display in table. Either array of strings or array of string or cell object. */
   cells: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.shape({
     title: _propTypes2.default.node,
-    transforms: _propTypes2.default.arrayOf(_propTypes2.default.func),
-    cellTransforms: _propTypes2.default.arrayOf(_propTypes2.default.func),
+    transforms: _propTypes2.default.arrayOf(_propTypes2.default.func), // Applies only to header cell
+    cellTransforms: _propTypes2.default.arrayOf(_propTypes2.default.func), // Applies only to body cells
+    columnTransforms: _propTypes2.default.arrayOf(_propTypes2.default.func), // Applies to both header and body cells
     formatters: _propTypes2.default.arrayOf(_propTypes2.default.func),
     cellFormatters: _propTypes2.default.arrayOf(_propTypes2.default.func)
   })])).isRequired,
@@ -172,6 +175,7 @@ var propTypes = {
 var defaultProps = {
   children: null,
   onCollapse: null,
+  onExpand: null,
   className: '',
   variant: null,
   borders: true,
@@ -231,6 +235,7 @@ var Table = function (_React$Component) {
           actionResolver = _props.actionResolver,
           areActionsDisabled = _props.areActionsDisabled,
           onCollapse = _props.onCollapse,
+          onExpand = _props.onExpand,
           rowLabeledBy = _props.rowLabeledBy,
           dropdownPosition = _props.dropdownPosition,
           dropdownDirection = _props.dropdownDirection,
@@ -242,7 +247,7 @@ var Table = function (_React$Component) {
           bodyWrapper = _props.bodyWrapper,
           rowWrapper = _props.rowWrapper,
           borders = _props.borders,
-          props = _objectWithoutProperties(_props, ['caption', 'header', 'className', 'gridBreakPoint', 'onSort', 'onSelect', 'sortBy', 'children', 'actions', 'actionResolver', 'areActionsDisabled', 'onCollapse', 'rowLabeledBy', 'dropdownPosition', 'dropdownDirection', 'contentId', 'expandId', 'variant', 'rows', 'cells', 'bodyWrapper', 'rowWrapper', 'borders']);
+          props = _objectWithoutProperties(_props, ['caption', 'header', 'className', 'gridBreakPoint', 'onSort', 'onSelect', 'sortBy', 'children', 'actions', 'actionResolver', 'areActionsDisabled', 'onCollapse', 'onExpand', 'rowLabeledBy', 'dropdownPosition', 'dropdownDirection', 'contentId', 'expandId', 'variant', 'rows', 'cells', 'bodyWrapper', 'rowWrapper', 'borders']);
 
       var headerData = (0, _headerUtils.calculateColumns)(cells, {
         sortBy: sortBy,
@@ -253,6 +258,7 @@ var Table = function (_React$Component) {
         actionResolver: actionResolver,
         areActionsDisabled: areActionsDisabled,
         onCollapse: onCollapse,
+        onExpand: onExpand,
         rowLabeledBy: rowLabeledBy,
         expandId: expandId,
         contentId: contentId,
@@ -287,7 +293,7 @@ var Table = function (_React$Component) {
             },
             columns: headerData,
             role: 'grid',
-            className: (0, _reactStyles.css)(_tableCss2.default.table, (0, _reactStyles.getModifier)(_tableGridCss2.default, gridBreakPoint), (0, _reactStyles.getModifier)(_tableCss2.default, variant), onCollapse && variant === TableVariant.compact && _tableCss2.default.modifiers.expandable, variant === TableVariant.compact && borders === false ? _tableCss2.default.modifiers.noBorderRows : null, className)
+            className: (0, _reactStyles.css)(_tableCss2.default.table, (0, _reactStyles.getModifier)(_tableGridCss2.default, gridBreakPoint), (0, _reactStyles.getModifier)(_tableCss2.default, variant), (onCollapse && variant === TableVariant.compact || onExpand) && _tableCss2.default.modifiers.expandable, variant === TableVariant.compact && borders === false ? _tableCss2.default.modifiers.noBorderRows : null, className)
           }),
           caption && _react2.default.createElement(
             'caption',

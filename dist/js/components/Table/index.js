@@ -78,6 +78,12 @@ Object.defineProperty(exports, 'ExpandableRowContent', {
 
 var _utils = require('./utils');
 
+Object.defineProperty(exports, 'compoundExpand', {
+  enumerable: true,
+  get: function get() {
+    return _utils.compoundExpand;
+  }
+});
 Object.defineProperty(exports, 'sortable', {
   enumerable: true,
   get: function get() {
@@ -106,6 +112,24 @@ Object.defineProperty(exports, 'isRowExpanded', {
   enumerable: true,
   get: function get() {
     return _utils.isRowExpanded;
+  }
+});
+Object.defineProperty(exports, 'textCenter', {
+  enumerable: true,
+  get: function get() {
+    return _utils.textCenter;
+  }
+});
+Object.defineProperty(exports, 'classNames', {
+  enumerable: true,
+  get: function get() {
+    return _utils.classNames;
+  }
+});
+Object.defineProperty(exports, 'Visibility', {
+  enumerable: true,
+  get: function get() {
+    return _utils.Visibility;
   }
 });
 

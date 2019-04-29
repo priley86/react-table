@@ -8,6 +8,48 @@
   --pf-global--link--Color--hover: var(--pf-global--link--Color--dark--hover);
   --pf-global--BackgroundColor--100: var(--pf-global--BackgroundColor--light-100); }
 
+/* stylelint-disable */
+.pf-c-table tr > * {
+  --pf-hidden-visible--visible--Visibility: visible;
+  --pf-hidden-visible--hidden--Display: none;
+  --pf-hidden-visible--hidden--Visibility: hidden;
+  --pf-hidden-visible--Display: var(--pf-hidden-visible--visible--Display);
+  --pf-hidden-visible--Visibility: var(--pf-hidden-visible--visible--Visibility);
+  display: var(--pf-hidden-visible--Display);
+  visibility: var(--pf-hidden-visible--Visibility); }
+  .pf-c-table tr > .pf-m-hidden {
+    --pf-hidden-visible--Display: var(--pf-hidden-visible--hidden--Display);
+    --pf-hidden-visible--Visibility: var(--pf-hidden-visible--hidden--Visibility); }
+  @media screen and (min-width: 576px) {
+    .pf-c-table tr > .pf-m-hidden-on-sm {
+      --pf-hidden-visible--Display: var(--pf-hidden-visible--hidden--Display);
+      --pf-hidden-visible--Visibility: var(--pf-hidden-visible--hidden--Visibility); }
+    .pf-c-table tr > .pf-m-visible-on-sm {
+      --pf-hidden-visible--Display: var(--pf-hidden-visible--visible--Display);
+      --pf-hidden-visible--Visibility: var(--pf-hidden-visible--visible--Visibility); } }
+  @media screen and (min-width: 768px) {
+    .pf-c-table tr > .pf-m-hidden-on-md {
+      --pf-hidden-visible--Display: var(--pf-hidden-visible--hidden--Display);
+      --pf-hidden-visible--Visibility: var(--pf-hidden-visible--hidden--Visibility); }
+    .pf-c-table tr > .pf-m-visible-on-md {
+      --pf-hidden-visible--Display: var(--pf-hidden-visible--visible--Display);
+      --pf-hidden-visible--Visibility: var(--pf-hidden-visible--visible--Visibility); } }
+  @media screen and (min-width: 992px) {
+    .pf-c-table tr > .pf-m-hidden-on-lg {
+      --pf-hidden-visible--Display: var(--pf-hidden-visible--hidden--Display);
+      --pf-hidden-visible--Visibility: var(--pf-hidden-visible--hidden--Visibility); }
+    .pf-c-table tr > .pf-m-visible-on-lg {
+      --pf-hidden-visible--Display: var(--pf-hidden-visible--visible--Display);
+      --pf-hidden-visible--Visibility: var(--pf-hidden-visible--visible--Visibility); } }
+  @media screen and (min-width: 1200px) {
+    .pf-c-table tr > .pf-m-hidden-on-xl {
+      --pf-hidden-visible--Display: var(--pf-hidden-visible--hidden--Display);
+      --pf-hidden-visible--Visibility: var(--pf-hidden-visible--hidden--Visibility); }
+    .pf-c-table tr > .pf-m-visible-on-xl {
+      --pf-hidden-visible--Display: var(--pf-hidden-visible--visible--Display);
+      --pf-hidden-visible--Visibility: var(--pf-hidden-visible--visible--Visibility); } }
+
+/* stylelint-enable */
 .pf-c-table {
   /* stylelint-disable */
   --pf-c-table--BackgroundColor: var(--pf-global--BackgroundColor--100);
@@ -25,6 +67,7 @@
   --pf-c-table-caption--PaddingLeft: var(--pf-global--spacer--xl);
   --pf-c-table-caption--md--PaddingLeft: var(--pf-global--spacer--md);
   --pf-c-table-thead--FontSize: var(--pf-global--FontSize--sm);
+  --pf-c-table-cell--hidden-visible--Display: table-cell;
   --pf-c-table-thead-cell--PaddingTop: var(--pf-global--spacer--md);
   --pf-c-table-thead-cell--PaddingBottom: var(--pf-global--spacer--md);
   --pf-c-table-tbody-cell--PaddingTop: var(--pf-global--spacer--xl);
@@ -99,13 +142,14 @@
     height: 1px;
     border-bottom: var(--pf-c-table--BorderWidth) solid var(--pf-c-table--BorderColor); }
   .pf-c-table tr > * {
+    /* stylelint-disable-next-line */
+    --pf-hidden-visible--visible--Display: var(--pf-c-table-cell--hidden-visible--Display);
     position: relative;
     height: inherit;
     padding: var(--pf-c-table-cell--PaddingTop) var(--pf-c-table-cell--PaddingRight) var(--pf-c-table-cell--PaddingBottom) var(--pf-c-table-cell--PaddingLeft);
     font-size: var(--pf-c-table-cell--FontSize);
     font-weight: var(--pf-c-table--FontWeight);
-    vertical-align: baseline;
-    /* stylelint-disable-next-line */ }
+    vertical-align: baseline; }
     .pf-c-table tr > *:first-child {
       --pf-c-table-cell--PaddingLeft: var(--pf-c-table-cell--first-last-child--PaddingLeft); }
     .pf-c-table tr > *:last-child {
@@ -166,6 +210,10 @@
   vertical-align: top; }
   .pf-c-table__toggle .pf-c-button {
     margin-top: var(--pf-c-table__toggle--c-button--MarginTop); }
+    .pf-c-table__toggle .pf-c-button > * {
+      transform: rotate(270deg); }
+    .pf-c-table__toggle .pf-c-button.pf-m-expanded > * {
+      transform: rotate(0deg); }
   .pf-c-table__toggle svg {
     pointer-events: none; }
 

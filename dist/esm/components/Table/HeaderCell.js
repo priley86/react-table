@@ -4,28 +4,38 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@patternfly/react-styles';
+import styles from '../../@patternfly/patternfly/components/Table/table.css.js';
 
 var HeaderCell = function HeaderCell(_ref) {
   var dataLabel = _ref['data-label'],
+      className = _ref.className,
+      Component = _ref.component,
       isVisible = _ref.isVisible,
       scope = _ref.scope,
-      Component = _ref.component,
-      props = _objectWithoutProperties(_ref, ['data-label', 'isVisible', 'scope', 'component']);
+      textCenter = _ref.textCenter,
+      props = _objectWithoutProperties(_ref, ['data-label', 'className', 'component', 'isVisible', 'scope', 'textCenter']);
 
   var mappedProps = _extends({}, scope ? { scope: scope } : {}, props);
-  return React.createElement(Component, mappedProps);
+  return React.createElement(Component, _extends({}, mappedProps, { className: css(className, textCenter && styles.modifiers.center) }));
 };
 
 HeaderCell.propTypes = {
   'data-label': PropTypes.string,
+  className: PropTypes.string,
+  component: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.number]),
+  isVisible: PropTypes.bool,
   scope: PropTypes.string,
-  component: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.number])
+  textCenter: PropTypes.bool
 };
 
 HeaderCell.defaultProps = {
-  scope: '',
+  'data-label': '',
+  className: undefined,
   component: 'th',
-  'data-label': ''
+  isVisible: undefined,
+  scope: '',
+  textCenter: false
 };
 
 export default HeaderCell;

@@ -52,7 +52,7 @@ var BodyWrapper = function (_Component) {
           props = _objectWithoutProperties(_props, ['mappedRows', 'tbodyRef']);
 
       if (mappedRows && mappedRows.some(function (row) {
-        return row.hasOwnProperty('isOpen');
+        return row.hasOwnProperty('parent');
       })) {
         return _react2.default.createElement(
           _react.Fragment,

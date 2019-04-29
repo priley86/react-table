@@ -1,4 +1,6 @@
 /* stylelint-enable */
+/* stylelint-disable */
+/* stylelint-enable */
 .pf-c-button {
   --pf-c-button--PaddingTop: var(--pf-global--spacer--form-element);
   --pf-c-button--PaddingRight: var(--pf-global--spacer--md);
@@ -61,6 +63,8 @@
   --pf-c-button--m-link--focus--Color: var(--pf-global--link--Color--hover);
   --pf-c-button--m-link--active--Color: var(--pf-global--link--Color--hover);
   --pf-c-button--m-link--disabled--BackgroundColor: transparent;
+  --pf-c-button--m-link--m-inline--hover--TextDecoration: var(--pf-global--link--TextDecoration--hover);
+  --pf-c-button--m-link--m-inline--hover--Color: var(--pf-global--link--Color--hover);
   --pf-c-button--m-plain--Color: var(--pf-global--Color--200);
   --pf-c-button--m-plain--hover--Color: var(--pf-global--Color--100);
   --pf-c-button--m-plain--focus--Color: var(--pf-global--Color--100);
@@ -165,14 +169,20 @@
       --pf-c-button--m-danger--BackgroundColor: var(--pf-c-button--m-danger--focus--BackgroundColor); }
   .pf-c-button.pf-m-link {
     color: var(--pf-c-button--m-link--Color); }
-    .pf-c-button.pf-m-link:hover, .pf-c-button.pf-m-link.pf-m-hover {
+    .pf-c-button.pf-m-link:not(.pf-m-inline):hover, .pf-c-button.pf-m-link:not(.pf-m-inline).pf-m-hover {
       --pf-c-button--m-link--Color: var(--pf-c-button--m-link--hover--Color); }
-    .pf-c-button.pf-m-link:active, .pf-c-button.pf-m-link.pf-m-active {
+    .pf-c-button.pf-m-link:not(.pf-m-inline):active, .pf-c-button.pf-m-link:not(.pf-m-inline).pf-m-active {
       --pf-c-button--m-link--Color: var(--pf-c-button--m-link--active--Color); }
-    .pf-c-button.pf-m-link:focus, .pf-c-button.pf-m-link.pf-m-focus {
+    .pf-c-button.pf-m-link:not(.pf-m-inline):focus, .pf-c-button.pf-m-link:not(.pf-m-inline).pf-m-focus {
       --pf-c-button--m-link--Color: var(--pf-c-button--m-link--focus--Color); }
     .pf-c-button.pf-m-link:disabled, .pf-c-button.pf-m-link.pf-m-disabled {
       background-color: var(--pf-c-button--m-link--disabled--BackgroundColor); }
+    .pf-c-button.pf-m-link.pf-m-inline {
+      display: inline;
+      padding: 0; }
+      .pf-c-button.pf-m-link.pf-m-inline:hover {
+        --pf-c-button--m-link--Color: var(--pf-c-button--m-link--m-inline--hover--Color);
+        text-decoration: var(--pf-c-button--m-link--m-inline--hover--TextDecoration); }
   .pf-c-button:disabled, .pf-c-button.pf-m-disabled {
     color: var(--pf-c-button--disabled--Color);
     pointer-events: none;

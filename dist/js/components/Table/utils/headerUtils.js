@@ -14,33 +14,36 @@ var _formatters = require('./formatters');
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 /**
- * Generate header with transofmrs and formatters from custom header object.
- * @param {*} header with transforms formatters and rest of header object.
+ * Generate header with transforms and formatters from custom header object.
+ * @param {*} header with transforms, formatters, columnTransforms, and rest of header object.
  * @param {*} title to be used as label in header config.
  * @return {*} header, label, transforms: Array, formatters: Array.
  */
 var generateHeader = function generateHeader(_ref, title) {
   var origTransforms = _ref.transforms,
       origFormatters = _ref.formatters,
+      columnTransforms = _ref.columnTransforms,
       header = _ref.header;
   return _extends({}, header, {
     label: title,
-    transforms: [_transformers.scopeColTransformer, _transformers.emptyCol].concat(_toConsumableArray(origTransforms || []), _toConsumableArray(header && header.hasOwnProperty('transforms') ? header.transforms : [])),
+    transforms: [_transformers.scopeColTransformer, _transformers.emptyCol].concat(_toConsumableArray(origTransforms || []), _toConsumableArray(columnTransforms || []), _toConsumableArray(header && header.hasOwnProperty('transforms') ? header.transforms : [])),
     formatters: [].concat(_toConsumableArray(origFormatters || []), _toConsumableArray(header && header.hasOwnProperty('formatters') ? header.formatters : []))
   });
 };
 
 /**
  * Function to generate cell for header config to change look of each cell.
- * @param {*} customCell config with cellFormatters, cellTransforms and rest of cell config.
+ * @param {*} customCell config with cellFormatters, cellTransforms, columnTransforms and rest of cell config.
  * @returns {*} cell, transforms: Array, formatters: Array.
  */
 var generateCell = function generateCell(_ref2) {
   var cellFormatters = _ref2.cellFormatters,
       cellTransforms = _ref2.cellTransforms,
+      columnTransforms = _ref2.columnTransforms,
       cell = _ref2.cell;
   return _extends({}, cell, {
-    transforms: [_transformers.mapProps].concat(_toConsumableArray(cellTransforms || []), _toConsumableArray(cell && cell.hasOwnProperty('transforms') ? cell.transforms : [])),
+    transforms: [].concat(_toConsumableArray(cellTransforms || []), _toConsumableArray(columnTransforms || []), _toConsumableArray(cell && cell.hasOwnProperty('transforms') ? cell.transforms : []), [_transformers.mapProps // This transform should be applied last so that props that are manually defined at the cell level will override all other transforms.
+    ]),
     formatters: [_formatters.defaultTitle].concat(_toConsumableArray(cellFormatters || []), _toConsumableArray(cell && cell.hasOwnProperty('formatters') ? cell.formatters : []))
   });
 };
@@ -158,6 +161,14 @@ var mapOpenedRows = exports.mapOpenedRows = function mapOpenedRows(rows, childre
       var parent = acc.length > 0 && acc[acc.length - 1];
       if (parent) {
         acc[acc.length - 1].rows = [].concat(_toConsumableArray(acc[acc.length - 1].rows), [children[key]]);
+        if (curr.hasOwnProperty('compoundParent')) {
+          // if this is compound expand, check for any open child cell
+          acc[acc.length - 1].isOpen = acc[acc.length - 1].rows.some(function (oneRow) {
+            return oneRow.props.rowData.cells.some(function (oneCell) {
+              return oneCell.props && oneCell.props.isOpen;
+            });
+          });
+        }
       }
     } else {
       acc = [].concat(_toConsumableArray(acc), [_extends({}, curr, { rows: [children[key]] })]);

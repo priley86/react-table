@@ -42,6 +42,8 @@ var propTypes = {
   className: PropTypes.string,
   /** Function called when user wants to collapse row. */
   onCollapse: PropTypes.func,
+  /** Function called when user wants to compound expand row. */
+  onExpand: PropTypes.func,
   /** Table variant, defaults to large. */
   variant: PropTypes.oneOf(Object.values(TableVariant)),
   /** Size at which table is broken into tiles. */
@@ -94,8 +96,9 @@ var propTypes = {
   /** Header cells to display in table. Either array of strings or array of string or cell object. */
   cells: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.shape({
     title: PropTypes.node,
-    transforms: PropTypes.arrayOf(PropTypes.func),
-    cellTransforms: PropTypes.arrayOf(PropTypes.func),
+    transforms: PropTypes.arrayOf(PropTypes.func), // Applies only to header cell
+    cellTransforms: PropTypes.arrayOf(PropTypes.func), // Applies only to body cells
+    columnTransforms: PropTypes.arrayOf(PropTypes.func), // Applies to both header and body cells
     formatters: PropTypes.arrayOf(PropTypes.func),
     cellFormatters: PropTypes.arrayOf(PropTypes.func)
   })])).isRequired,
@@ -135,6 +138,7 @@ var propTypes = {
 var defaultProps = {
   children: null,
   onCollapse: null,
+  onExpand: null,
   className: '',
   variant: null,
   borders: true,
@@ -194,6 +198,7 @@ var Table = function (_React$Component) {
           actionResolver = _props.actionResolver,
           areActionsDisabled = _props.areActionsDisabled,
           onCollapse = _props.onCollapse,
+          onExpand = _props.onExpand,
           rowLabeledBy = _props.rowLabeledBy,
           dropdownPosition = _props.dropdownPosition,
           dropdownDirection = _props.dropdownDirection,
@@ -205,7 +210,7 @@ var Table = function (_React$Component) {
           bodyWrapper = _props.bodyWrapper,
           rowWrapper = _props.rowWrapper,
           borders = _props.borders,
-          props = _objectWithoutProperties(_props, ['caption', 'header', 'className', 'gridBreakPoint', 'onSort', 'onSelect', 'sortBy', 'children', 'actions', 'actionResolver', 'areActionsDisabled', 'onCollapse', 'rowLabeledBy', 'dropdownPosition', 'dropdownDirection', 'contentId', 'expandId', 'variant', 'rows', 'cells', 'bodyWrapper', 'rowWrapper', 'borders']);
+          props = _objectWithoutProperties(_props, ['caption', 'header', 'className', 'gridBreakPoint', 'onSort', 'onSelect', 'sortBy', 'children', 'actions', 'actionResolver', 'areActionsDisabled', 'onCollapse', 'onExpand', 'rowLabeledBy', 'dropdownPosition', 'dropdownDirection', 'contentId', 'expandId', 'variant', 'rows', 'cells', 'bodyWrapper', 'rowWrapper', 'borders']);
 
       var headerData = calculateColumns(cells, {
         sortBy: sortBy,
@@ -216,6 +221,7 @@ var Table = function (_React$Component) {
         actionResolver: actionResolver,
         areActionsDisabled: areActionsDisabled,
         onCollapse: onCollapse,
+        onExpand: onExpand,
         rowLabeledBy: rowLabeledBy,
         expandId: expandId,
         contentId: contentId,
@@ -250,7 +256,7 @@ var Table = function (_React$Component) {
             },
             columns: headerData,
             role: 'grid',
-            className: css(styles.table, getModifier(stylesGrid, gridBreakPoint), getModifier(styles, variant), onCollapse && variant === TableVariant.compact && styles.modifiers.expandable, variant === TableVariant.compact && borders === false ? styles.modifiers.noBorderRows : null, className)
+            className: css(styles.table, getModifier(stylesGrid, gridBreakPoint), getModifier(styles, variant), (onCollapse && variant === TableVariant.compact || onExpand) && styles.modifiers.expandable, variant === TableVariant.compact && borders === false ? styles.modifiers.noBorderRows : null, className)
           }),
           caption && React.createElement(
             'caption',

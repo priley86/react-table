@@ -34,7 +34,7 @@ var BodyWrapper = function (_Component) {
           props = _objectWithoutProperties(_props, ['mappedRows', 'tbodyRef']);
 
       if (mappedRows && mappedRows.some(function (row) {
-        return row.hasOwnProperty('isOpen');
+        return row.hasOwnProperty('parent');
       })) {
         return React.createElement(
           Fragment,

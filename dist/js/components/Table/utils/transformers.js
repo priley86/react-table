@@ -42,6 +42,15 @@ Object.defineProperty(exports, 'cellWidth', {
   }
 });
 
+var _textCenter = require('./decorators/textCenter');
+
+Object.defineProperty(exports, 'textCenter', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_textCenter).default;
+  }
+});
+
 var _collapsible = require('./decorators/collapsible');
 
 Object.defineProperty(exports, 'collapsible', {
@@ -63,12 +72,36 @@ Object.defineProperty(exports, 'expandable', {
   }
 });
 
+var _compoundExpand = require('./decorators/compoundExpand');
+
+Object.defineProperty(exports, 'compoundExpand', {
+  enumerable: true,
+  get: function get() {
+    return _compoundExpand.compoundExpand;
+  }
+});
+
 var _headerCol = require('./decorators/headerCol');
 
 Object.defineProperty(exports, 'headerCol', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_headerCol).default;
+  }
+});
+
+var _classNames = require('./decorators/classNames');
+
+Object.defineProperty(exports, 'classNames', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_classNames).default;
+  }
+});
+Object.defineProperty(exports, 'Visibility', {
+  enumerable: true,
+  get: function get() {
+    return _classNames.Visibility;
   }
 });
 
