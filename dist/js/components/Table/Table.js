@@ -62,6 +62,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var TableGridBreakpoint = exports.TableGridBreakpoint = {
+  none: null,
   grid: 'grid',
   gridMd: 'grid-md',
   gridLg: 'grid-lg',
@@ -293,7 +294,7 @@ var Table = function (_React$Component) {
             },
             columns: headerData,
             role: 'grid',
-            className: (0, _reactStyles.css)(_tableCss2.default.table, (0, _reactStyles.getModifier)(_tableGridCss2.default, gridBreakPoint), (0, _reactStyles.getModifier)(_tableCss2.default, variant), (onCollapse && variant === TableVariant.compact || onExpand) && _tableCss2.default.modifiers.expandable, variant === TableVariant.compact && borders === false ? _tableCss2.default.modifiers.noBorderRows : null, className)
+            className: (0, _reactStyles.css)(_tableCss2.default.table, gridBreakPoint && (0, _reactStyles.getModifier)(_tableGridCss2.default, gridBreakPoint), (0, _reactStyles.getModifier)(_tableCss2.default, variant), (onCollapse && variant === TableVariant.compact || onExpand) && _tableCss2.default.modifiers.expandable, variant === TableVariant.compact && borders === false ? _tableCss2.default.modifiers.noBorderRows : null, className)
           }),
           caption && _react2.default.createElement(
             'caption',
