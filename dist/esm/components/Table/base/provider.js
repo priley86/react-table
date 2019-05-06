@@ -10,58 +10,75 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * provider.js
+ *
+ * Forked from reactabular-table version 8.14.0
+ * https://github.com/reactabular/reactabular/tree/v8.14.0/packages/reactabular-table/src
+ * */
 import React from 'react';
-import { Header } from './base';
 import PropTypes from 'prop-types';
-import { TableContext } from './Table';
+import { tableTypes, tableDefaults, tableContextTypes } from './types';
 
-var propTypes = {
-  /** Additional classes for header. */
-  className: PropTypes.string
-};
+var componentDefaults = tableDefaults.renderers;
 
-var defaultProps = {
-  className: ''
-};
+var Provider = function (_React$Component) {
+  _inherits(Provider, _React$Component);
 
-var ContextHeader = function (_React$Component) {
-  _inherits(ContextHeader, _React$Component);
+  function Provider() {
+    _classCallCheck(this, Provider);
 
-  function ContextHeader() {
-    _classCallCheck(this, ContextHeader);
-
-    return _possibleConstructorReturn(this, (ContextHeader.__proto__ || Object.getPrototypeOf(ContextHeader)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).apply(this, arguments));
   }
 
-  _createClass(ContextHeader, [{
+  _createClass(Provider, [{
+    key: 'getChildContext',
+    value: function getChildContext() {
+      var _props = this.props,
+          columns = _props.columns,
+          components = _props.components,
+          renderers = _props.renderers;
+
+      var finalRenderers = renderers;
+
+      // XXXXX: Drop in the next major version
+      if (components) {
+        // eslint-disable-next-line no-console
+        console.warn('`components` have been deprecated in favor of `renderers` and will be removed in the next major version, please rename!');
+
+        finalRenderers = components;
+      }
+
+      return {
+        columns: columns,
+        renderers: {
+          table: finalRenderers.table || componentDefaults.table,
+          header: _extends({}, componentDefaults.header, finalRenderers.header),
+          body: _extends({}, componentDefaults.body, finalRenderers.body)
+        }
+      };
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          className = _props.className,
-          headerRows = _props.headerRows,
-          props = _objectWithoutProperties(_props, ['className', 'headerRows']);
+      var _props2 = this.props,
+          columns = _props2.columns,
+          renderers = _props2.renderers,
+          components = _props2.components,
+          children = _props2.children,
+          props = _objectWithoutProperties(_props2, ['columns', 'renderers', 'components', 'children']);
 
-      return React.createElement(Header, _extends({}, props, { headerRows: headerRows, className: className }));
+      return React.createElement(renderers.table || tableDefaults.renderers.table, props, children);
     }
   }]);
 
-  return ContextHeader;
+  return Provider;
 }(React.Component);
 
-var TableHeader = function TableHeader(_ref) {
-  var props = _objectWithoutProperties(_ref, []);
+export default Provider;
 
-  return React.createElement(
-    TableContext.Consumer,
-    null,
-    function (_ref2) {
-      var headerRows = _ref2.headerRows;
-      return React.createElement(ContextHeader, _extends({}, props, { headerRows: headerRows }));
-    }
-  );
-};
-
-TableHeader.propTypes = propTypes;
-TableHeader.defaultProps = defaultProps;
-
-export default TableHeader;
+Provider.propTypes = _extends({}, tableTypes, {
+  children: PropTypes.any
+});
+Provider.defaultProps = _extends({}, tableDefaults);
+Provider.childContextTypes = tableContextTypes;

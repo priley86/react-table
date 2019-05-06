@@ -12,7 +12,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactabularTable = require('reactabular-table');
+var _base = require('./base');
 
 var _propTypes = require('prop-types');
 
@@ -56,7 +56,7 @@ var ContextHeader = function (_React$Component) {
           headerRows = _props.headerRows,
           props = _objectWithoutProperties(_props, ['className', 'headerRows']);
 
-      return _react2.default.createElement(_reactabularTable.Header, _extends({}, props, { headerRows: headerRows, className: className }));
+      return _react2.default.createElement(_base.Header, _extends({}, props, { headerRows: headerRows, className: className }));
     }
   }]);
 

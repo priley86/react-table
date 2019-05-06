@@ -13,7 +13,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 import React from 'react';
-import { Body } from 'reactabular-table';
+import { Body } from './base';
 import PropTypes from 'prop-types';
 import { TableContext } from './Table';
 import { isRowExpanded } from './utils';
@@ -24,9 +24,7 @@ var propTypes = {
   /** Specify key which should be used for labeling each row. */
   rowKey: PropTypes.string,
   /** Function that is fired when user clicks on row.  */
-  onRowClick: PropTypes.func,
-  /** Virtualized rows (optional provided in place of rows) */
-  rowsToRender: PropTypes.array
+  onRowClick: PropTypes.func
 };
 
 var defaultProps = {
@@ -34,8 +32,7 @@ var defaultProps = {
   className: '',
   onRowClick: function onRowClick() {
     return undefined;
-  },
-  rowsToRender: undefined
+  }
 };
 
 var flagVisibility = function flagVisibility(rows) {
@@ -112,10 +109,9 @@ var ContextBody = function (_React$Component) {
           headerData = _props.headerData,
           rows = _props.rows,
           rowKey = _props.rowKey,
-          rowsToRender = _props.rowsToRender,
           children = _props.children,
           onRowClick = _props.onRowClick,
-          props = _objectWithoutProperties(_props, ['className', 'headerData', 'rows', 'rowKey', 'rowsToRender', 'children', 'onRowClick']);
+          props = _objectWithoutProperties(_props, ['className', 'headerData', 'rows', 'rowKey', 'children', 'onRowClick']);
 
       var mappedRows = void 0;
       if (headerData.length > 0) {
@@ -155,7 +151,7 @@ var TableBody = function TableBody(props) {
     function (_ref2) {
       var headerData = _ref2.headerData,
           rows = _ref2.rows;
-      return React.createElement(ContextBody, _extends({ headerData: headerData, rows: props.rowsToRender || rows }, props));
+      return React.createElement(ContextBody, _extends({ headerData: headerData, rows: rows }, props));
     }
   );
 };

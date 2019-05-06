@@ -21,7 +21,7 @@ var _tableGridCss = require('../../@patternfly/patternfly/components/Table/table
 
 var _tableGridCss2 = _interopRequireDefault(_tableGridCss);
 
-var _reactabularTable = require('reactabular-table');
+var _base = require('./base');
 
 var _reactCore = require('@patternfly/react-core');
 
@@ -280,7 +280,7 @@ var Table = function (_React$Component) {
         },
         header,
         _react2.default.createElement(
-          _reactabularTable.Provider,
+          _base.Provider,
           _extends({}, props, {
             renderers: {
               body: {

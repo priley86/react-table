@@ -13,7 +13,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 import React from 'react';
 import styles from '../../@patternfly/patternfly/components/Table/table.css.js';
 import stylesGrid from '../../@patternfly/patternfly/components/Table/table-grid.css.js';
-import { Provider } from 'reactabular-table';
+import { Provider } from './base';
 import { DropdownPosition, DropdownDirection } from '@patternfly/react-core';
 import { css, getModifier } from '@patternfly/react-styles';
 import PropTypes from 'prop-types';
