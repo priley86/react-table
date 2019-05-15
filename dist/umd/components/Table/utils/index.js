@@ -1,19 +1,17 @@
-"use strict";
-
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "./transformers", "./headerUtils", "./formatters", "./utils"], factory);
+    define(['exports', './transformers', './headerUtils', './formatters', './utils'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("./transformers"), require("./headerUtils"), require("./formatters"), require("./utils"));
+    factory(exports, require('./transformers'), require('./headerUtils'), require('./formatters'), require('./utils'));
   } else {
     var mod = {
       exports: {}
     };
     factory(mod.exports, global.transformers, global.headerUtils, global.formatters, global.utils);
-    global.undefined = mod.exports;
+    global.index = mod.exports;
   }
-})(void 0, function (exports, _transformers, _headerUtils, _formatters, _utils) {
-  "use strict";
+})(this, function (exports, _transformers, _headerUtils, _formatters, _utils) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true

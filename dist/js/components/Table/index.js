@@ -4,6 +4,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _ActionsColumn = require('./ActionsColumn');
+
+Object.defineProperty(exports, 'ActionsColumn', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_ActionsColumn).default;
+  }
+});
+
 var _Table = require('./Table');
 
 Object.defineProperty(exports, 'Table', {

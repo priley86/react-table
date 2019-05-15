@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "react", "../../@patternfly/patternfly/components/Table/table.css.js", "@patternfly/react-styles", "./utils/headerUtils", "prop-types"], factory);
+    define(["exports", "react", "./types", "./header-row"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("react"), require("../../@patternfly/patternfly/components/Table/table.css.js"), require("@patternfly/react-styles"), require("./utils/headerUtils"), require("prop-types"));
+    factory(exports, require("react"), require("./types"), require("./header-row"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.react, global.tableCss, global.reactStyles, global.headerUtils, global.propTypes);
-    global.BodyWrapper = mod.exports;
+    factory(mod.exports, global.react, global.types, global.headerRow);
+    global.header = mod.exports;
   }
-})(this, function (exports, _react, _tableCss, _reactStyles, _headerUtils, _propTypes) {
+})(this, function (exports, _react, _types, _headerRow) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -19,9 +19,7 @@
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _tableCss2 = _interopRequireDefault(_tableCss);
-
-  var _propTypes2 = _interopRequireDefault(_propTypes);
+  var _headerRow2 = _interopRequireDefault(_headerRow);
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
@@ -33,16 +31,6 @@
     return typeof obj;
   } : function (obj) {
     return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  };
-
-  var _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }return target;
   };
 
   var _createClass = function () {
@@ -79,51 +67,57 @@
     }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   }
 
-  var BodyWrapper = function (_Component) {
-    _inherits(BodyWrapper, _Component);
+  /**
+   * header.js
+   *
+   * Forked from reactabular-table version 8.14.0
+   * https://github.com/reactabular/reactabular/tree/v8.14.0/packages/reactabular-table/src
+   * */
 
-    function BodyWrapper() {
-      _classCallCheck(this, BodyWrapper);
 
-      return _possibleConstructorReturn(this, (BodyWrapper.__proto__ || Object.getPrototypeOf(BodyWrapper)).apply(this, arguments));
+  // eslint-disable-next-line react/prefer-stateless-function
+
+  var Header = function (_React$Component) {
+    _inherits(Header, _React$Component);
+
+    function Header() {
+      _classCallCheck(this, Header);
+
+      return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
     }
 
-    _createClass(BodyWrapper, [{
+    _createClass(Header, [{
       key: 'render',
       value: function render() {
         var _props = this.props,
-            mappedRows = _props.mappedRows,
-            tbodyRef = _props.tbodyRef,
-            props = _objectWithoutProperties(_props, ['mappedRows', 'tbodyRef']);
+            children = _props.children,
+            headerRows = _props.headerRows,
+            onRow = _props.onRow,
+            props = _objectWithoutProperties(_props, ['children', 'headerRows', 'onRow']);
 
-        if (mappedRows && mappedRows.some(function (row) {
-          return row.hasOwnProperty('parent');
-        })) {
-          return _react2.default.createElement(_react.Fragment, null, (0, _headerUtils.mapOpenedRows)(mappedRows, this.props.children).map(function (oneRow, key) {
-            return _react2.default.createElement('tbody', _extends({}, props, {
-              className: (0, _reactStyles.css)(oneRow.isOpen && _tableCss2.default.modifiers.expanded),
-              key: 'tbody-' + key,
-              ref: tbodyRef
-            }), oneRow.rows);
-          }));
-        }
-        return _react2.default.createElement('tbody', _extends({}, props, { ref: tbodyRef }));
+        var _context = this.context,
+            renderers = _context.renderers,
+            columns = _context.columns;
+
+        // If headerRows aren't passed, default to bodyColumns as header rows
+
+        return _react2.default.createElement(renderers.header.wrapper, props, [(headerRows || [columns]).map(function (rowData, rowIndex) {
+          return _react2.default.createElement(_headerRow2.default, {
+            key: rowIndex + '-header-row',
+            renderers: renderers.header,
+            onRow: onRow,
+            rowData: rowData,
+            rowIndex: rowIndex
+          });
+        })].concat(children));
       }
     }]);
 
-    return BodyWrapper;
-  }(_react.Component);
+    return Header;
+  }(_react2.default.Component);
 
-  BodyWrapper.propTypes = {
-    rows: _propTypes2.default.array,
-    onCollapse: _propTypes2.default.func,
-    tbodyRef: _propTypes2.default.func
-  };
+  Header.propTypes = _types.tableHeaderTypes;
+  Header.contextTypes = _types.tableHeaderContextTypes;
 
-  BodyWrapper.defaultProps = {
-    rows: [],
-    tbodyRef: null
-  };
-
-  exports.default = BodyWrapper;
+  exports.default = Header;
 });

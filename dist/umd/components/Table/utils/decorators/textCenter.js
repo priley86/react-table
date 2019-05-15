@@ -1,5 +1,3 @@
-"use strict";
-
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
     define(["exports"], factory);
@@ -10,18 +8,16 @@
       exports: {}
     };
     factory(mod.exports);
-    global.undefined = mod.exports;
+    global.textCenter = mod.exports;
   }
-})(void 0, function (exports) {
+})(this, function (exports) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
 
-  exports["default"] = function () {
-    return {
-      textCenter: true
-    };
+  exports.default = function () {
+    return { textCenter: true };
   };
 });

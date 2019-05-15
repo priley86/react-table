@@ -1,19 +1,17 @@
-"use strict";
-
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@patternfly/react-styles", "../../../../@patternfly/patternfly/components/Table/table.css.js"], factory);
+    define(['exports', '@patternfly/react-styles', '../../../../@patternfly/patternfly/components/Table/table.css.js'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@patternfly/react-styles"), require("../../../../@patternfly/patternfly/components/Table/table.css.js"));
+    factory(exports, require('@patternfly/react-styles'), require('../../../../@patternfly/patternfly/components/Table/table.css.js'));
   } else {
     var mod = {
       exports: {}
     };
     factory(mod.exports, global.reactStyles, global.tableCss);
-    global.undefined = mod.exports;
+    global.cellWidth = mod.exports;
   }
-})(void 0, function (exports, _reactStyles, _tableCss) {
-  "use strict";
+})(this, function (exports, _reactStyles, _tableCss) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -27,10 +25,10 @@
     };
   }
 
-  exports["default"] = function (width) {
+  exports.default = function (width) {
     return function () {
       return {
-        className: (0, _reactStyles.css)((0, _reactStyles.getModifier)(_tableCss2["default"], "width-".concat(width)))
+        className: (0, _reactStyles.css)((0, _reactStyles.getModifier)(_tableCss2.default, 'width-' + width))
       };
     };
   };

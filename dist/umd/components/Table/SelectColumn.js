@@ -1,19 +1,17 @@
-"use strict";
-
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "react", "prop-types"], factory);
+    define(['exports', 'react', 'prop-types'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("react"), require("prop-types"));
+    factory(exports, require('react'), require('prop-types'));
   } else {
     var mod = {
       exports: {}
     };
     factory(mod.exports, global.react, global.propTypes);
-    global.undefined = mod.exports;
+    global.SelectColumn = mod.exports;
   }
-})(void 0, function (exports, _react, _propTypes) {
-  "use strict";
+})(this, function (exports, _react, _propTypes) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -29,64 +27,26 @@
     };
   }
 
-  function _extends() {
-    _extends = Object.assign || function (target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key];
-          }
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
         }
       }
+    }return target;
+  };
 
-      return target;
-    };
-
-    return _extends.apply(this, arguments);
-  }
-
-  function _objectWithoutProperties(source, excluded) {
-    if (source == null) return {};
-
-    var target = _objectWithoutPropertiesLoose(source, excluded);
-
-    var key, i;
-
-    if (Object.getOwnPropertySymbols) {
-      var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-      for (i = 0; i < sourceSymbolKeys.length; i++) {
-        key = sourceSymbolKeys[i];
-        if (excluded.indexOf(key) >= 0) continue;
-        if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-        target[key] = source[key];
-      }
-    }
-
-    return target;
-  }
-
-  function _objectWithoutPropertiesLoose(source, excluded) {
-    if (source == null) return {};
-    var target = {};
-    var sourceKeys = Object.keys(source);
-    var key, i;
-
-    for (i = 0; i < sourceKeys.length; i++) {
-      key = sourceKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      target[key] = source[key];
-    }
-
-    return target;
+  function _objectWithoutProperties(obj, keys) {
+    var target = {};for (var i in obj) {
+      if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+    }return target;
   }
 
   var propTypes = {
-    children: _propTypes2["default"].node,
-    className: _propTypes2["default"].string,
-    onSelect: _propTypes2["default"].func
+    children: _propTypes2.default.node,
+    className: _propTypes2.default.string,
+    onSelect: _propTypes2.default.func
   };
   var defaultProps = {
     children: null,
@@ -98,15 +58,13 @@
     var children = _ref.children,
         className = _ref.className,
         onSelect = _ref.onSelect,
-        props = _objectWithoutProperties(_ref, ["children", "className", "onSelect"]);
+        props = _objectWithoutProperties(_ref, ['children', 'className', 'onSelect']);
 
-    return _react2["default"].createElement(_react2["default"].Fragment, null, _react2["default"].createElement("input", _extends({}, props, {
-      type: "checkbox",
-      onChange: onSelect
-    })), children);
+    return _react2.default.createElement(_react2.default.Fragment, null, _react2.default.createElement('input', _extends({}, props, { type: 'checkbox', onChange: onSelect })), children);
   };
 
   SelectColumn.propTypes = propTypes;
   SelectColumn.defaultProps = defaultProps;
-  exports["default"] = SelectColumn;
+
+  exports.default = SelectColumn;
 });

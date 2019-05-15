@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "react", "../../@patternfly/patternfly/components/Table/table.css.js", "@patternfly/react-styles", "./utils/headerUtils", "prop-types"], factory);
+    define(["exports", "react", "prop-types", "./types"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("react"), require("../../@patternfly/patternfly/components/Table/table.css.js"), require("@patternfly/react-styles"), require("./utils/headerUtils"), require("prop-types"));
+    factory(exports, require("react"), require("prop-types"), require("./types"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.react, global.tableCss, global.reactStyles, global.headerUtils, global.propTypes);
-    global.BodyWrapper = mod.exports;
+    factory(mod.exports, global.react, global.propTypes, global.types);
+    global.provider = mod.exports;
   }
-})(this, function (exports, _react, _tableCss, _reactStyles, _headerUtils, _propTypes) {
+})(this, function (exports, _react, _propTypes, _types) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -18,8 +18,6 @@
   });
 
   var _react2 = _interopRequireDefault(_react);
-
-  var _tableCss2 = _interopRequireDefault(_tableCss);
 
   var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -79,51 +77,75 @@
     }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   }
 
-  var BodyWrapper = function (_Component) {
-    _inherits(BodyWrapper, _Component);
+  /**
+   * provider.js
+   *
+   * Forked from reactabular-table version 8.14.0
+   * https://github.com/reactabular/reactabular/tree/v8.14.0/packages/reactabular-table/src
+   * */
 
-    function BodyWrapper() {
-      _classCallCheck(this, BodyWrapper);
 
-      return _possibleConstructorReturn(this, (BodyWrapper.__proto__ || Object.getPrototypeOf(BodyWrapper)).apply(this, arguments));
+  var componentDefaults = _types.tableDefaults.renderers;
+
+  var Provider = function (_React$Component) {
+    _inherits(Provider, _React$Component);
+
+    function Provider() {
+      _classCallCheck(this, Provider);
+
+      return _possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).apply(this, arguments));
     }
 
-    _createClass(BodyWrapper, [{
+    _createClass(Provider, [{
+      key: 'getChildContext',
+      value: function getChildContext() {
+        var _props = this.props,
+            columns = _props.columns,
+            components = _props.components,
+            renderers = _props.renderers;
+
+        var finalRenderers = renderers;
+
+        // XXXXX: Drop in the next major version
+        if (components) {
+          // eslint-disable-next-line no-console
+          console.warn('`components` have been deprecated in favor of `renderers` and will be removed in the next major version, please rename!');
+
+          finalRenderers = components;
+        }
+
+        return {
+          columns: columns,
+          renderers: {
+            table: finalRenderers.table || componentDefaults.table,
+            header: _extends({}, componentDefaults.header, finalRenderers.header),
+            body: _extends({}, componentDefaults.body, finalRenderers.body)
+          }
+        };
+      }
+    }, {
       key: 'render',
       value: function render() {
-        var _props = this.props,
-            mappedRows = _props.mappedRows,
-            tbodyRef = _props.tbodyRef,
-            props = _objectWithoutProperties(_props, ['mappedRows', 'tbodyRef']);
+        var _props2 = this.props,
+            columns = _props2.columns,
+            renderers = _props2.renderers,
+            components = _props2.components,
+            children = _props2.children,
+            props = _objectWithoutProperties(_props2, ['columns', 'renderers', 'components', 'children']);
 
-        if (mappedRows && mappedRows.some(function (row) {
-          return row.hasOwnProperty('parent');
-        })) {
-          return _react2.default.createElement(_react.Fragment, null, (0, _headerUtils.mapOpenedRows)(mappedRows, this.props.children).map(function (oneRow, key) {
-            return _react2.default.createElement('tbody', _extends({}, props, {
-              className: (0, _reactStyles.css)(oneRow.isOpen && _tableCss2.default.modifiers.expanded),
-              key: 'tbody-' + key,
-              ref: tbodyRef
-            }), oneRow.rows);
-          }));
-        }
-        return _react2.default.createElement('tbody', _extends({}, props, { ref: tbodyRef }));
+        return _react2.default.createElement(renderers.table || _types.tableDefaults.renderers.table, props, children);
       }
     }]);
 
-    return BodyWrapper;
-  }(_react.Component);
+    return Provider;
+  }(_react2.default.Component);
 
-  BodyWrapper.propTypes = {
-    rows: _propTypes2.default.array,
-    onCollapse: _propTypes2.default.func,
-    tbodyRef: _propTypes2.default.func
-  };
+  exports.default = Provider;
 
-  BodyWrapper.defaultProps = {
-    rows: [],
-    tbodyRef: null
-  };
 
-  exports.default = BodyWrapper;
+  Provider.propTypes = _extends({}, _types.tableTypes, {
+    children: _propTypes2.default.any
+  });
+  Provider.defaultProps = _extends({}, _types.tableDefaults);
+  Provider.childContextTypes = _types.tableContextTypes;
 });

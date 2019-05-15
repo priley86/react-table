@@ -1,5 +1,3 @@
-"use strict";
-
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
     define(["exports", "react"], factory);
@@ -10,9 +8,9 @@
       exports: {}
     };
     factory(mod.exports, global.react);
-    global.undefined = mod.exports;
+    global.headerCol = mod.exports;
   }
-})(void 0, function (exports, _react) {
+})(this, function (exports, _react) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -27,47 +25,29 @@
     };
   }
 
-  function _typeof2(obj) {
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof2 = function _typeof2(obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof2 = function _typeof2(obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
+  var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  };
 
-    return _typeof2(obj);
-  }
+  var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+    return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+  };
 
-  function _typeof(obj) {
-    if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
-      _typeof = function _typeof(obj) {
-        return _typeof2(obj);
-      };
-    } else {
-      _typeof = function _typeof(obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
-      };
-    }
-
-    return _typeof(obj);
-  }
-
-  exports["default"] = function () {
+  exports.default = function () {
     var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'simple-node';
 
     var headerCol = function headerCol(value) {
       var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
           rowIndex = _ref.rowIndex;
 
-      var result = _typeof(value) === 'object' ? value.title : value;
+      var result = (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' ? value.title : value;
       return {
         component: 'th',
-        children: _react2["default"].createElement("div", {
-          id: id + rowIndex
-        }, result)
+        children: _react2.default.createElement('div', { id: id + rowIndex }, result)
       };
     };
 

@@ -1,18 +1,16 @@
-"use strict";
-
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "react", "reactabular-table", "prop-types", "./Table"], factory);
+    define(["exports", "react", "./base", "prop-types", "./Table"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("react"), require("reactabular-table"), require("prop-types"), require("./Table"));
+    factory(exports, require("react"), require("./base"), require("prop-types"), require("./Table"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.react, global.reactabularTable, global.propTypes, global.Table);
-    global.undefined = mod.exports;
+    factory(mod.exports, global.react, global.base, global.propTypes, global.Table);
+    global.Header = mod.exports;
   }
-})(void 0, function (exports, _react, _reactabularTable, _propTypes, _Table) {
+})(this, function (exports, _react, _base, _propTypes, _Table) {
   "use strict";
 
   Object.defineProperty(exports, "__esModule", {
@@ -29,86 +27,36 @@
     };
   }
 
-  function _typeof2(obj) {
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof2 = function _typeof2(obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof2 = function _typeof2(obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  };
 
-    return _typeof2(obj);
-  }
-
-  function _typeof(obj) {
-    if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
-      _typeof = function _typeof(obj) {
-        return _typeof2(obj);
-      };
-    } else {
-      _typeof = function _typeof(obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
-      };
-    }
-
-    return _typeof(obj);
-  }
-
-  function _extends() {
-    _extends = Object.assign || function (target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key];
-          }
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
         }
       }
+    }return target;
+  };
 
-      return target;
-    };
-
-    return _extends.apply(this, arguments);
-  }
-
-  function _objectWithoutProperties(source, excluded) {
-    if (source == null) return {};
-
-    var target = _objectWithoutPropertiesLoose(source, excluded);
-
-    var key, i;
-
-    if (Object.getOwnPropertySymbols) {
-      var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-      for (i = 0; i < sourceSymbolKeys.length; i++) {
-        key = sourceSymbolKeys[i];
-        if (excluded.indexOf(key) >= 0) continue;
-        if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-        target[key] = source[key];
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
       }
-    }
+    }return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+  }();
 
-    return target;
-  }
-
-  function _objectWithoutPropertiesLoose(source, excluded) {
-    if (source == null) return {};
-    var target = {};
-    var sourceKeys = Object.keys(source);
-    var key, i;
-
-    for (i = 0; i < sourceKeys.length; i++) {
-      key = sourceKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      target[key] = source[key];
-    }
-
-    return target;
+  function _objectWithoutProperties(obj, keys) {
+    var target = {};for (var i in obj) {
+      if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+    }return target;
   }
 
   function _classCallCheck(instance, Constructor) {
@@ -117,118 +65,62 @@
     }
   }
 
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-  }
-
   function _possibleConstructorReturn(self, call) {
-    if (call && (_typeof(call) === "object" || typeof call === "function")) {
-      return call;
-    }
-
-    return _assertThisInitialized(self);
-  }
-
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
+    if (!self) {
       throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
+    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
   }
 
   function _inherits(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        writable: true,
-        configurable: true
-      }
-    });
-    if (superClass) _setPrototypeOf(subClass, superClass);
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-
-    return _setPrototypeOf(o, p);
+      throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   }
 
   var propTypes = {
     /** Additional classes for header. */
-    className: _propTypes2["default"].string
+    className: _propTypes2.default.string
   };
+
   var defaultProps = {
     className: ''
   };
 
-  var ContextHeader =
-  /*#__PURE__*/
-  function (_React$Component) {
+  var ContextHeader = function (_React$Component) {
     _inherits(ContextHeader, _React$Component);
 
     function ContextHeader() {
       _classCallCheck(this, ContextHeader);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(ContextHeader).apply(this, arguments));
+      return _possibleConstructorReturn(this, (ContextHeader.__proto__ || Object.getPrototypeOf(ContextHeader)).apply(this, arguments));
     }
 
     _createClass(ContextHeader, [{
-      key: "render",
+      key: 'render',
       value: function render() {
-        var _this$props = this.props,
-            className = _this$props.className,
-            headerRows = _this$props.headerRows,
-            props = _objectWithoutProperties(_this$props, ["className", "headerRows"]);
+        var _props = this.props,
+            className = _props.className,
+            headerRows = _props.headerRows,
+            props = _objectWithoutProperties(_props, ['className', 'headerRows']);
 
-        return _react2["default"].createElement(_reactabularTable.Header, _extends({}, props, {
-          headerRows: headerRows,
-          className: className
-        }));
+        return _react2.default.createElement(_base.Header, _extends({}, props, { headerRows: headerRows, className: className }));
       }
     }]);
 
     return ContextHeader;
-  }(_react2["default"].Component);
+  }(_react2.default.Component);
 
   var TableHeader = function TableHeader(_ref) {
-    var props = _extends({}, _ref);
+    var props = _objectWithoutProperties(_ref, []);
 
-    return _react2["default"].createElement(_Table.TableContext.Consumer, null, function (_ref2) {
+    return _react2.default.createElement(_Table.TableContext.Consumer, null, function (_ref2) {
       var headerRows = _ref2.headerRows;
-      return _react2["default"].createElement(ContextHeader, _extends({}, props, {
-        headerRows: headerRows
-      }));
+      return _react2.default.createElement(ContextHeader, _extends({}, props, { headerRows: headerRows }));
     });
   };
 
   TableHeader.propTypes = propTypes;
   TableHeader.defaultProps = defaultProps;
-  exports["default"] = TableHeader;
+
+  exports.default = TableHeader;
 });
