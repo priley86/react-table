@@ -133,7 +133,8 @@ var propTypes = {
       throw new Error('Specify at least one of: header, caption, aria-label');
     }
     return null;
-  }
+  },
+  role: PropTypes.string
 };
 
 var defaultProps = {
@@ -148,7 +149,8 @@ var defaultProps = {
   contentId: 'expanded-content',
   dropdownPosition: DropdownPosition.right,
   dropdownDirection: DropdownDirection.down,
-  gridBreakPoint: TableGridBreakpoint.gridMd
+  gridBreakPoint: TableGridBreakpoint.gridMd,
+  role: 'grid'
 };
 
 export var TableContext = React.createContext();
@@ -211,7 +213,8 @@ var Table = function (_React$Component) {
           bodyWrapper = _props.bodyWrapper,
           rowWrapper = _props.rowWrapper,
           borders = _props.borders,
-          props = _objectWithoutProperties(_props, ['caption', 'header', 'className', 'gridBreakPoint', 'onSort', 'onSelect', 'sortBy', 'children', 'actions', 'actionResolver', 'areActionsDisabled', 'onCollapse', 'onExpand', 'rowLabeledBy', 'dropdownPosition', 'dropdownDirection', 'contentId', 'expandId', 'variant', 'rows', 'cells', 'bodyWrapper', 'rowWrapper', 'borders']);
+          role = _props.role,
+          props = _objectWithoutProperties(_props, ['caption', 'header', 'className', 'gridBreakPoint', 'onSort', 'onSelect', 'sortBy', 'children', 'actions', 'actionResolver', 'areActionsDisabled', 'onCollapse', 'onExpand', 'rowLabeledBy', 'dropdownPosition', 'dropdownDirection', 'contentId', 'expandId', 'variant', 'rows', 'cells', 'bodyWrapper', 'rowWrapper', 'borders', 'role']);
 
       var headerData = calculateColumns(cells, {
         sortBy: sortBy,
@@ -256,7 +259,7 @@ var Table = function (_React$Component) {
               }
             },
             columns: headerData,
-            role: 'grid',
+            role: role,
             className: css(styles.table, gridBreakPoint && getModifier(stylesGrid, gridBreakPoint), getModifier(styles, variant), (onCollapse && variant === TableVariant.compact || onExpand) && styles.modifiers.expandable, variant === TableVariant.compact && borders === false ? styles.modifiers.noBorderRows : null, className)
           }),
           caption && React.createElement(

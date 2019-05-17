@@ -170,7 +170,8 @@ var propTypes = {
       throw new Error('Specify at least one of: header, caption, aria-label');
     }
     return null;
-  }
+  },
+  role: _propTypes2.default.string
 };
 
 var defaultProps = {
@@ -185,7 +186,8 @@ var defaultProps = {
   contentId: 'expanded-content',
   dropdownPosition: _reactCore.DropdownPosition.right,
   dropdownDirection: _reactCore.DropdownDirection.down,
-  gridBreakPoint: TableGridBreakpoint.gridMd
+  gridBreakPoint: TableGridBreakpoint.gridMd,
+  role: 'grid'
 };
 
 var TableContext = exports.TableContext = _react2.default.createContext();
@@ -248,7 +250,8 @@ var Table = function (_React$Component) {
           bodyWrapper = _props.bodyWrapper,
           rowWrapper = _props.rowWrapper,
           borders = _props.borders,
-          props = _objectWithoutProperties(_props, ['caption', 'header', 'className', 'gridBreakPoint', 'onSort', 'onSelect', 'sortBy', 'children', 'actions', 'actionResolver', 'areActionsDisabled', 'onCollapse', 'onExpand', 'rowLabeledBy', 'dropdownPosition', 'dropdownDirection', 'contentId', 'expandId', 'variant', 'rows', 'cells', 'bodyWrapper', 'rowWrapper', 'borders']);
+          role = _props.role,
+          props = _objectWithoutProperties(_props, ['caption', 'header', 'className', 'gridBreakPoint', 'onSort', 'onSelect', 'sortBy', 'children', 'actions', 'actionResolver', 'areActionsDisabled', 'onCollapse', 'onExpand', 'rowLabeledBy', 'dropdownPosition', 'dropdownDirection', 'contentId', 'expandId', 'variant', 'rows', 'cells', 'bodyWrapper', 'rowWrapper', 'borders', 'role']);
 
       var headerData = (0, _headerUtils.calculateColumns)(cells, {
         sortBy: sortBy,
@@ -293,7 +296,7 @@ var Table = function (_React$Component) {
               }
             },
             columns: headerData,
-            role: 'grid',
+            role: role,
             className: (0, _reactStyles.css)(_tableCss2.default.table, gridBreakPoint && (0, _reactStyles.getModifier)(_tableGridCss2.default, gridBreakPoint), (0, _reactStyles.getModifier)(_tableCss2.default, variant), (onCollapse && variant === TableVariant.compact || onExpand) && _tableCss2.default.modifiers.expandable, variant === TableVariant.compact && borders === false ? _tableCss2.default.modifiers.noBorderRows : null, className)
           }),
           caption && _react2.default.createElement(
