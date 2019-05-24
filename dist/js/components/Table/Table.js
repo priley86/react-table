@@ -152,21 +152,21 @@ var propTypes = {
   dropdownDirection: _propTypes2.default.oneOf(Object.values(_reactCore.DropdownDirection)),
   /** Header to display above table for accessibility reasons. */
   header: function header(props) {
-    if (!props['aria-label'] && !props.caption && !props.header) {
+    if (!props['aria-label'] && !props.caption && !props.header && !props.role === 'presentation') {
       throw new Error('Specify at least one of: header, caption, aria-label');
     }
     return null;
   },
   /** Caption to display in table for accessibility reasons. */
   caption: function caption(props) {
-    if (!props['aria-label'] && !props.caption && !props.header) {
+    if (!props['aria-label'] && !props.caption && !props.header && !props.role === 'presentation') {
       throw new Error('Specify at least one of: header, caption, aria-label');
     }
     return null;
   },
   /** aria-label in table for accessibility reasons. */
   'aria-label': function ariaLabel(props) {
-    if (!props['aria-label'] && !props.caption && !props.header) {
+    if (!props['aria-label'] && !props.caption && !props.header && !props.role === 'presentation') {
       throw new Error('Specify at least one of: header, caption, aria-label');
     }
     return null;
